@@ -1,0 +1,262 @@
+@model IEnumerable<ProjetoGS.Web.Models.TecnologiaViewModel>
+@{
+    ViewData["Title"] = "Painel de Controle";
+    var stats = (ProjetoGS.Web.Models.StatsViewModel)ViewBag.Stats;
+}
+
+<div class="page-fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="glowing-text-purple mb-1">A Nova Economia Espacial</h1>
+            <p class="text-muted">Explore como os desafios de sobrevivência e exploração fora da Terra revolucionam a sociedade.</p>
+        </div>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-controller="Tecnologia" asp-action="Create" class="btn btn-cyber">
+                <i class="bi bi-plus-lg me-2"></i>Registrar Tecnologia
+            </a>
+        }
+    </div>
+
+    <!-- Metric Cards Row -->
+    <div class="row g-4 mb-5">
+        <!-- Technologies Count Card -->
+        <div class="col-md-4">
+            <div class="glass-card p-4 d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="text-muted d-block mb-1">Total de Tecnologias</span>
+                    <h2 class="display-6 fw-bold mb-0 text-white">@stats.TotalTecnologias</h2>
+                </div>
+                <div class="metric-icon icon-purple">
+                    <i class="bi bi-cpu-fill"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Missions Count Card -->
+        <div class="col-md-4">
+            <div class="glass-card p-4 d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="text-muted d-block mb-1">Missões Mapeadas</span>
+                    <h2 class="display-6 fw-bold mb-0 text-white">@stats.TotalMissoes</h2>
+                </div>
+                <div class="metric-icon icon-cyan">
+                    <i class="bi bi-globe-americas"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sectors Count Card -->
+        <div class="col-md-4">
+            <div class="glass-card p-4 d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="text-muted d-block mb-1">Setores Beneficiados</span>
+                    <h2 class="display-6 fw-bold mb-0 text-white">@stats.TotalSetores</h2>
+                </div>
+                <div class="metric-icon icon-green">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics & Charts Row -->
+    <div class="row g-4 mb-5">
+        <!-- Progress Bars (Earth Sectors) -->
+        <div class="col-lg-6">
+            <div class="glass-card p-4 h-100">
+                <h3 class="h5 mb-4 text-glowing glowing-text-cyan">
+                    <i class="bi bi-bar-chart-line-fill me-2"></i>Impacto nos Setores da Terra
+                </h3>
+                
+                @if (stats.DistribuicaoSetores == null || !stats.DistribuicaoSetores.Any())
+                {
+                    <div class="text-center py-5">
+                        <p class="text-muted">Nenhum dado estatístico disponível no momento.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex flex-column gap-4">
+                        @foreach (var item in stats.DistribuicaoSetores)
+                        {
+                            var progressColor = "bg-primary";
+                            if (item.Setor == "Saúde") progressColor = "bg-danger";
+                            else if (item.Setor == "Agricultura") progressColor = "bg-success";
+                            else if (item.Setor == "Consumo") progressColor = "bg-info";
+                            else if (item.Setor == "Energia") progressColor = "bg-warning";
+
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-medium">@item.Setor</span>
+                                    <span class="text-muted text-sm">@item.Quantidade spinoff(s) (@item.Percentual%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px; background-color: rgba(255, 255, 255, 0.05); border-radius: 5px;">
+                                    <div class="progress-bar @progressColor" role="progressbar" style="width: @item.Percentual%; border-radius: 5px;" 
+                                         aria-valuenow="@item.Percentual" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Chart.js Doughnut -->
+        <div class="col-lg-6">
+            <div class="glass-card p-4 h-100">
+                <h3 class="h5 mb-4 text-glowing glowing-text-purple">
+                    <i class="bi bi-pie-chart-fill me-2"></i>Distribuição por Categoria de Impacto
+                </h3>
+                <div class="d-flex justify-content-center align-items-center" style="position: relative; height: 260px;">
+                    <canvas id="sectorChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Additions Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="glass-card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="h5 mb-0">
+                        <i class="bi bi-clock-history me-2"></i>Últimos Cadastros Realizados
+                    </h3>
+                    <a asp-controller="Tecnologia" asp-action="Index" class="btn btn-sm btn-cyber-outline">
+                        Ver Catálogo Completo
+                    </a>
+                </div>
+
+                @if (!Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <p class="text-muted">Nenhuma tecnologia espacial cadastrada ainda.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-cyber table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Tecnologia</th>
+                                    <th>Setor Beneficiado</th>
+                                    <th>Missão de Origem</th>
+                                    <th>Ano Inovação</th>
+                                    <th>Data Cadastro</th>
+                                    <th class="text-end">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var badgeClass = "badge-default";
+                                    if (item.CategoriaImpacto?.Nome == "Saúde") badgeClass = "badge-saude";
+                                    else if (item.CategoriaImpacto?.Nome == "Agricultura") badgeClass = "badge-agricultura";
+                                    else if (item.CategoriaImpacto?.Nome == "Consumo") badgeClass = "badge-consumo";
+                                    else if (item.CategoriaImpacto?.Nome == "Energia") badgeClass = "badge-energia";
+                                    else if (item.CategoriaImpacto?.Nome == "Transporte") badgeClass = "badge-transporte";
+
+                                    <tr>
+                                        <td>
+                                            <span class="fw-bold text-white">@item.Nome</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-cyber @badgeClass">
+                                                @(item.CategoriaImpacto?.Nome ?? "Outros")
+                                            </span>
+                                        </td>
+                                        <td>@item.MissaoOrigem</td>
+                                        <td>@item.AnoInovacao</td>
+                                        <td class="text-muted">@item.DataCadastro.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td class="text-end">
+                                            <a asp-controller="Tecnologia" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-cyber-outline py-1 px-3">
+                                                Detalhes
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('sectorChart').getContext('2d');
+            
+            // Extract data dynamically from model/stats injected variables
+            var labels = [];
+            var counts = [];
+            
+            @if (stats.DistribuicaoSetores != null)
+            {
+                foreach (var item in stats.DistribuicaoSetores)
+                {
+                    <text>
+                        labels.push("@Html.Raw(item.Setor)");
+                        counts.push(@item.Quantidade);
+                    </text>
+                }
+            }
+
+            // Colors mapping matching the badges/styling
+            var backgroundColors = labels.map(function(label) {
+                if (label === 'Saúde') return 'rgba(238, 82, 83, 0.7)';
+                if (label === 'Agricultura') return 'rgba(16, 172, 132, 0.7)';
+                if (label === 'Consumo') return 'rgba(0, 242, 254, 0.7)';
+                if (label === 'Energia') return 'rgba(254, 202, 87, 0.7)';
+                if (label === 'Transporte') return 'rgba(9, 132, 227, 0.7)';
+                return 'rgba(138, 79, 255, 0.7)';
+            });
+
+            var borderColors = labels.map(function(label) {
+                if (label === 'Saúde') return '#ff7675';
+                if (label === 'Agricultura') return '#55efc4';
+                if (label === 'Consumo') return '#00f2fe';
+                if (label === 'Energia') return '#feca57';
+                if (label === 'Transporte') return '#74b9ff';
+                return '#8a4fff';
+            });
+
+            var sectorChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColors,
+                        borderWidth: 1.5,
+                        hoverOffset: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#f5f6fa',
+                                font: {
+                                    family: "'Space Grotesk', sans-serif",
+                                    size: 11
+                                },
+                                padding: 15
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+}

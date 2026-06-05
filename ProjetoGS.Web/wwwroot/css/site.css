@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-primary: #07080d;
+    --bg-secondary: #0f111a;
+    --card-bg: rgba(20, 24, 38, 0.65);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --color-primary: #8a4fff;
+    --color-secondary: #00f2fe;
+    --color-success: #10ac84;
+    --color-danger: #ee5253;
+    --text-main: #f5f6fa;
+    --text-muted: #a4b0be;
+}
+
+body {
+    background: radial-gradient(circle at top, #141124 0%, var(--bg-primary) 60%);
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: rgba(138, 79, 255, 0.3);
+    box-shadow: 0 12px 40px 0 rgba(138, 79, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Typography and Glowing */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.glowing-text-purple {
+    color: var(--text-main);
+    text-shadow: 0 0 10px rgba(138, 79, 255, 0.6);
+}
+
+.glowing-text-cyan {
+    color: var(--color-secondary);
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+
+/* Nav Bar */
+.navbar-cyber {
+    background: rgba(15, 17, 26, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand-cyber {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+}
+
+/* Metric Cards */
+.metric-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.icon-purple {
+    background: rgba(138, 79, 255, 0.15);
+    color: #a29bfe;
+    border: 1px solid rgba(138, 79, 255, 0.3);
+    box-shadow: 0 0 15px rgba(138, 79, 255, 0.2);
+}
+
+.icon-cyan {
+    background: rgba(0, 242, 254, 0.15);
+    color: var(--color-secondary);
+    border: 1px solid rgba(0, 242, 254, 0.3);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+
+.icon-green {
+    background: rgba(16, 172, 132, 0.15);
+    color: #55efc4;
+    border: 1px solid rgba(16, 172, 132, 0.3);
+    box-shadow: 0 0 15px rgba(16, 172, 132, 0.2);
+}
+
+/* Tables */
+.table-cyber {
+    color: var(--text-main);
+}
+
+.table-cyber th {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.table-cyber td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+
+/* Forms */
+.form-control-cyber {
+    background: rgba(15, 17, 26, 0.5) !important;
+    border: 1px solid var(--border-color);
+    color: var(--text-main) !important;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control-cyber:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(138, 79, 255, 0.25);
+    background: rgba(15, 17, 26, 0.8) !important;
+}
+
+.form-select-cyber {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23a4b0be' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* Buttons */
+.btn-cyber {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #6c5ce7 100%);
+    border: none;
+    color: #fff;
+    padding: 0.6rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 79, 255, 0.3);
+}
+
+.btn-cyber:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(138, 79, 255, 0.55);
+}
+
+.btn-cyber-outline {
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: #fff;
+    padding: 0.6rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-cyber-outline:hover {
+    background: rgba(138, 79, 255, 0.1);
+    color: #fff;
+    border-color: var(--color-secondary);
+}
+
+.btn-cyber-danger {
+    background: linear-gradient(135deg, var(--color-danger) 0%, #ff7675 100%);
+    border: none;
+    color: #fff;
+    padding: 0.6rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(238, 82, 83, 0.3);
+}
+
+.btn-cyber-danger:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(238, 82, 83, 0.55);
+}
+
+/* Badges */
+.badge-cyber {
+    padding: 0.4em 0.8em;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+.badge-saude {
+    background: rgba(238, 82, 83, 0.15);
+    color: #ff7675;
+    border: 1px solid rgba(238, 82, 83, 0.3);
+}
+
+.badge-agricultura {
+    background: rgba(16, 172, 132, 0.15);
+    color: #55efc4;
+    border: 1px solid rgba(16, 172, 132, 0.3);
+}
+
+.badge-consumo {
+    background: rgba(0, 242, 254, 0.15);
+    color: var(--color-secondary);
+    border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+.badge-energia {
+    background: rgba(254, 202, 87, 0.15);
+    color: #feca57;
+    border: 1px solid rgba(254, 202, 87, 0.3);
+}
+
+.badge-transporte {
+    background: rgba(9, 132, 227, 0.15);
+    color: #74b9ff;
+    border: 1px solid rgba(9, 132, 227, 0.3);
+}
+
+.badge-default {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+/* Transitions */
+.page-fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
