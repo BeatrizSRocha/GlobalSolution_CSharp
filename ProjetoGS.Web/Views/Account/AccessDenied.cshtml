@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Acesso Negado";
+}
+
+<div class="row justify-content-center align-items-center page-fade-in" style="min-height: 60vh;">
+    <div class="col-md-6 text-center">
+        <div class="glass-card p-5">
+            <i class="bi bi-exclamation-triangle-fill text-danger mb-4" style="font-size: 4rem;"></i>
+            <h2 class="h3 text-danger mb-2">Acesso Restrito</h2>
+            <p class="text-muted mb-4">
+                Desculpe, você não possui as permissões necessárias para acessar esta página ou realizar esta operação.
+                Esta ação é reservada exclusivamente para o perfil de <strong>Administrador</strong>.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-cyber-outline">
+                    <i class="bi bi-house-door-fill me-2"></i>Voltar ao Dashboard
+                </a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-cyber">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Entrar como Outro Usuário
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

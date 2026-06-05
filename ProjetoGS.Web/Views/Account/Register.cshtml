@@ -1,0 +1,81 @@
+@model ProjetoGS.Web.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Criar Conta";
+}
+
+<div class="row justify-content-center align-items-center page-fade-in" style="min-height: 80vh;">
+    <div class="col-md-6">
+        <div class="glass-card p-5">
+            <div class="text-center mb-4">
+                <i class="bi bi-person-plus-fill glowing-text-cyan" style="font-size: 3rem;"></i>
+                <h2 class="h4 mt-2">Criar Nova Conta</h2>
+                <p class="text-muted text-sm">Cadastre-se para começar a colaborar na catalogação de inovações.</p>
+            </div>
+
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger border-danger bg-dark text-danger text-sm py-2 px-3 rounded-3 mb-3" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Nome" class="form-label text-muted"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-muted"><i class="bi bi-person-fill"></i></span>
+                        <input asp-for="Nome" class="form-control form-control-cyber" placeholder="Seu nome completo" />
+                    </div>
+                    <span asp-validation-for="Nome" class="text-danger text-sm mt-1 d-block"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label text-muted"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-muted"><i class="bi bi-envelope-fill"></i></span>
+                        <input asp-for="Email" class="form-control form-control-cyber" placeholder="seuemail@exemplo.com" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger text-sm mt-1 d-block"></span>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Senha" class="form-label text-muted"></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-muted"><i class="bi bi-key-fill"></i></span>
+                            <input asp-for="Senha" class="form-control form-control-cyber" placeholder="Mínimo 6 caracteres" />
+                        </div>
+                        <span asp-validation-for="Senha" class="text-danger text-sm mt-1 d-block"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ConfirmarSenha" class="form-label text-muted"></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-muted"><i class="bi bi-key-fill"></i></span>
+                            <input asp-for="ConfirmarSenha" class="form-control form-control-cyber" placeholder="Repita a senha" />
+                        </div>
+                        <span asp-validation-for="ConfirmarSenha" class="text-danger text-sm mt-1 d-block"></span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Perfil" class="form-label text-muted"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-muted"><i class="bi bi-shield-lock-fill"></i></span>
+                        <select asp-for="Perfil" class="form-select form-control-cyber form-select-cyber">
+                            <option value="Pesquisador">Pesquisador (Acesso parcial: Cadastro e Edição)</option>
+                            <option value="Administrador">Administrador (Acesso total: CRUD + Exclusão)</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Perfil" class="text-danger text-sm mt-1 d-block"></span>
+                </div>
+
+                <button type="submit" class="btn btn-cyber w-100 mb-3">
+                    <i class="bi bi-check-circle-fill me-2"></i>Cadastrar e Entrar
+                </button>
+            </form>
+
+            <div class="text-center">
+                <p class="text-muted mb-0 text-sm">Já tem uma conta? <a asp-action="Login" class="text-glowing glowing-text-purple text-decoration-none fw-medium">Entre por aqui</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
