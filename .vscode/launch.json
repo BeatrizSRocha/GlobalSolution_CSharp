@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Executar AppHost (.NET Aspire)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/ProjetoGS.AppHost/bin/Debug/net9.0/ProjetoGS.AppHost.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}/ProjetoGS.AppHost",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
+  ]
+}
